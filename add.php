@@ -225,7 +225,7 @@
 	}
 	}
 
-let required = ['rhumba','reggea','country','hip hop','house'];
+let required = ['country','hip hop','house'];
 let songtype = document.querySelector('songtype');
 document.querySelector('#upload').addEventListener('click',()=>{
 	required.map(song=>{
