@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#space{
+			height: 80px;
+			font-size: 60px;
+		}
+		#text{
+			border:2px;
+		}
+		#text:focus{
+			border: 4px;
+		}
+	</style>
+</head>
+<body>
+	<div id="space"></div>
+<button id="check" onclick="check()">next</button>
+<button id="check" onclick="previous()">previous</button>
+<button id="stop">stop</button>
+
+<input type="text" name="fhg" id="text">
+<label id="info"></label>
+</body>
+<script type="text/javascript">
+ 	let text = document.querySelector("#text");
+
+ 	text.addEventListener('input',()=>{
+ 		if((text.value.length)<4){
+ 			document.querySelector("#info").style.color="red"
+ 			document.querySelector("#info").innerHTML="short"
+ 		}
+ 		else if((text.value.length)<8){
+ 			document.querySelector("#info").style.color="orange"
+ 			document.querySelector("#info").innerHTML="medium"
+ 		}
+ 		else if((text.value.length)>=8){
+ 			document.querySelector("#info").style.color="green"
+ 			document.querySelector("#info").innerHTML="strong"
+ 		}
+ 	})
+
+	window.onload=function(){check};
+	var interval=setInterval(check,300);
+	document.querySelector("#stop").addEventListener('click',function(){
+		clearInterval(interval);
+	})
+	var input = prompt("starting point");
+	var data = parseInt(input);
+
+	function check(){
+		data+=1;
+		document.querySelector("#space").innerHTML="&#"+data;
+		console.log(data);
+	} 
+	function previous(){
+		data-=1;
+		document.querySelector("#space").innerHTML="&#"+data;
+		console.log(data);
+	}
+	//let result = check();
+	
+</script>
+</html>
+
+<?php
+
+if (isset($_POST['allmembers'])) {
+	$number = 1;
+	$allmembersquery = "SELECT * FROM admin";
+	$total = mysqli_query($connect,$allmembersquery);
+	while($row = mysqli_fetch_assoc($total)){
+		echo "<div id='members'>";
+		echo $number .".".  $row['username'];
+		//echo "<br>";
+		echo "<form action='account.php' method='POST' id='delete'>";
+		echo "<button type='submit' id='delete-btn' name='delete-btn'>";
+		echo "DELETE";
+		echo"</button>";
+		echo "</form>";
+		echo"</div>";
+
+		$number++;
+
+		}
+	}
+		if (isset($_POST ['delete-btn'])) {
+			$id = $_SESSION['userid'];
+			$deleteQuery = "DELETE FROM admin WHERE id='$id'  ";
+			mysqli_query($connect,$deleteQuery);
+		}
+?>
