@@ -62,7 +62,7 @@ window.onload=function(){
 //next song
 				next.addEventListener('click',()=>{
 					index++;
-					if (index>=songs.length-1) {
+					if (index>songs.length-1) {
 		 				index=0;
 					 }
 					 if (status==0) {
